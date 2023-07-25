@@ -57,7 +57,7 @@ function moveBackground() {
 }
 
 function updateScore () {
-    score.innerHTML = `Score : ${score}`
+    scoreText.innerHTML = `Score : ${score}`
 }
 
 function checkAvoid() {
@@ -78,6 +78,7 @@ function gameOver() {
 function checkObstacleCollision() {
     if(nextObstacle === 'cactus') {
         if(obstaclePosition < 100 && obstaclePosition > 20 && position < 120) {
+            console.log('obstacle hit')
             gameOver()
         } else if (nextObstacle === 'bird') {
             if(obstaclePosition < 50 && obstaclePosition > 0 && position < 80){
@@ -98,11 +99,13 @@ function gameInit() {
 
 startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
+    gameInit()
     
     gameInterval = setInterval(() => {
         updateObstaclePosition()
-        moveBackground()
         checkAvoid()
+        checkObstacleCollision()
+        moveBackground()
     })
 
     document.addEventListener('keydown', handleKeyDown)
